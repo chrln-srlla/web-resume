@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black;
+  font-family: 'Poppins', sans-serif;
+}
+
+@media print {
+  /* Force the background of the entire page to white */
+  body, 
+  main, 
+  #root {
+    background-color: white !important;
+    background-image: none !important;
+    color: black !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ensure colors and lines in your ResumePreview are preserved */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide the scrollbar area if it appears in preview */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
