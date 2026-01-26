@@ -38,15 +38,13 @@ export default function Navbar({active, setActive}: NavbarProps) {
     </ul>
 
     <div className="flex items-center group cursor-pointer w-fit">
-  {/* Unified Parent Container */}
+
   <div className="flex items-center bg-[#1a1a1a] border border-white/10 rounded-full p-1 shadow-xl hover:bg-[#222222] transition-all">
     
-    {/* Left Side: About Text */}
     <div className="text-white text-xs px-4 py-2 font-medium">
       about
     </div>
 
-    {/* Right Side: Arrow Icon */}
     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#2a2a2a] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:translate-x-1 transition-transform">
       <svg 
         xmlns="http://www.w3.org/2000/svg" 

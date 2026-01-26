@@ -2,7 +2,6 @@ import type { UserData } from "./Personal Information";
 import type { ProjectData } from "./Projects";
 import type { AccountData } from "./Account";
 
-// This interface tells TypeScript exactly what the "data" prop contains
 interface ResumePreviewProps {
   data: {
     personal: UserData;
@@ -16,7 +15,6 @@ export default function ResumePreview({ data }: ResumePreviewProps) {
 
   return (
     <div className="p-10 text-black bg-white min-h-[297mm] w-[210mm] mx-auto font-serif">
-      {/* Header */}
       <div className="flex justify-between items-start border-b-4 border-gray-800 pb-6">
         <div>
           <h1 className="text-5xl font-bold uppercase">{personal.name || "Full Name"}</h1>
@@ -36,7 +34,6 @@ export default function ResumePreview({ data }: ResumePreviewProps) {
         )}
       </div>
 
-      {/* Skills */}
       <section className="mt-8">
         <h2 className="text-xl font-bold bg-gray-100 px-2 py-1 border-l-4 border-gray-800 mb-3">SKILLS</h2>
         <div className="flex flex-wrap gap-2">
@@ -46,7 +43,6 @@ export default function ResumePreview({ data }: ResumePreviewProps) {
         </div>
       </section>
 
-      {/* Experience */}
       <section className="mt-8">
         <h2 className="text-xl font-bold bg-gray-100 px-2 py-1 border-l-4 border-gray-800 mb-3">EXPERIENCE</h2>
         <ul className="list-disc ml-6 space-y-2">
@@ -54,7 +50,6 @@ export default function ResumePreview({ data }: ResumePreviewProps) {
         </ul>
       </section>
 
-      {/* Projects */}
       <section className="mt-8">
         <h2 className="text-xl font-bold bg-gray-100 px-2 py-1 border-l-4 border-gray-800 mb-3">PROJECTS</h2>
         <ul className="list-disc ml-6 space-y-2">

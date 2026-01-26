@@ -1,17 +1,15 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 
-// 1. Export the interface so App.tsx can use it
 export interface AccountData {
   number: number;
   email: string;
   github: string;
 }
 
-// 2. Update the Props interface to include all passed props
 interface AccountDataProps {
   data: AccountData;
   setData: (data: AccountData) => void;
-  resumeData: any; // This holds the full state from App.tsx for the print preview
+  resumeData: any; 
   setActive: (step: string) => void;
 }
 
@@ -29,11 +27,9 @@ export default function Account({ data, setData, resumeData, setActive }: Accoun
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Full Resume Data Ready:", resumeData);
-    // Optionally redirect to Home or show a success message
     setActive("Home");
   };
 
-  // 3. The Print Function
   const handlePrint = () => {
     window.print();
   };

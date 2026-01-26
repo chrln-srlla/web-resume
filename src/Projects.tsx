@@ -1,13 +1,11 @@
 import type { FormEvent } from "react";
 
-// 1. Export the data shape so App.tsx can use it
 export interface ProjectData {
   skills: string[];
   experiences: string[];
   projects: string[];
 }
 
-// 2. Define props to receive data and setter from App.tsx
 interface ProjectDataProps {
   data: ProjectData;
   setData: (data: ProjectData) => void;
@@ -16,7 +14,6 @@ interface ProjectDataProps {
 
 export default function Projects({ data, setData, setActive }: ProjectDataProps) {
   
-  // Helper to handle input changes for dynamic arrays
   const handleChange = (
     category: keyof ProjectData,
     index: number,
@@ -30,7 +27,6 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
     });
   };
 
-  // Helper to add a new empty field to a category
   const handleAdd = (category: keyof ProjectData) => {
     setData({
       ...data,
@@ -38,7 +34,6 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
     });
   };
 
-  // Helper to remove a field
   const handleRemove = (category: keyof ProjectData, index: number) => {
     setData({
       ...data,
@@ -62,7 +57,7 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
       </div>
 
       <form onSubmit={handleSubmit} className="md:w-1/2 w-full space-y-8">
-        {/* Skills Section */}
+       
         <div>
           <h3 className="text-center text-white pb-2 font-bold uppercase tracking-wider">Skills</h3>
           {data.skills.map((skill, index) => (
@@ -97,7 +92,6 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
           </div>
         </div>
 
-        {/* Experiences Section */}
         <div>
           <h3 className="text-center text-white pb-2 font-bold uppercase tracking-wider">Experience</h3>
           {data.experiences.map((exp, index) => (
@@ -132,7 +126,6 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
           </div>
         </div>
 
-        {/* Projects Section */}
         <div>
           <h3 className="text-center text-white pb-2 font-bold uppercase tracking-wider">Projects</h3>
           {data.projects.map((proj, index) => (

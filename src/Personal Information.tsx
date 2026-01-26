@@ -12,7 +12,7 @@ export interface UserData {
 interface PersonalInformationProps {
   data: UserData;
   setData: (data: UserData) => void;
-  setActive: (step: string) => void; // This is the key to navigation
+  setActive: (step: string) => void; 
 }
 
 export default function PersonalInformation({ data, setData, setActive }: PersonalInformationProps) {

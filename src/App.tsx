@@ -9,7 +9,6 @@ import ResumePreview from "./ResumePreview";
 export default function App() {
   const [active, setActive] = useState("Home");
   
-  // Lifted State
   const [resumeData, setResumeData] = useState({
     personal: { image: null as File | null, name: "", age: 0, sex: "", birthdate: "", birthplace: "" },
     projects: { skills: [""], experiences: [""], projects: [""] },
@@ -43,13 +42,12 @@ export default function App() {
         <Account 
           data={resumeData.account} 
           setData={(d) => setResumeData({...resumeData, account: d})} 
-          resumeData={resumeData} // Pass everything for printing
+          resumeData={resumeData} 
           setActive={setActive} 
         />
       )}
             </div>
 
-      {/* Hidden Resume Template for Printing */}
       <div className="hidden print:block print:m-0 print:p-0 print:static">
         <ResumePreview data={resumeData} />
       </div>
