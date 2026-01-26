@@ -1,4 +1,6 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+//Account
+
+import { type ChangeEvent, type FormEvent } from "react";
 
 export interface AccountData {
   number: number;
