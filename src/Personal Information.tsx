@@ -45,7 +45,6 @@ export default function PersonalInformation({ data, setData, setActive }: Person
       <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col items-center justify-center">
         <div className="space-y-4 flex flex-col items-center mb-10">
 
-          {/** Picture Preview */}
           <div className="flex justify-center mt-10 mb-6">
             {data.image ? (
               <img

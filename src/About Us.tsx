@@ -13,7 +13,7 @@ export default function AboutUs() {
       />
 
       <h1 className="text-white text-center max-w-2xl">
-        A webRESUME is an online platform developed where people can fill up and create their resume online and print it directly.
+        A <span className="font-light text-white-400">web</span><span className="font-bold italic text-gray-500">Resume</span> is an online platform developed where people can fill up and create their resume online and print it directly.
       </h1>
 
       <button

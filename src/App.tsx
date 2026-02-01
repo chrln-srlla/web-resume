@@ -6,7 +6,6 @@ import Home from "./Home";
 import PersonalInformation from "./Personal Information";
 import Projects from "./Projects";
 import Account from "./Account";
-import ResumePreview from "./ResumePreview";
 import AboutUs from "./About Us";
 
 export default function App() {
@@ -21,7 +20,6 @@ export default function App() {
       <main className="p-5 px-16 md:p-15 min-h-screen bg-[#0a0a0a] print:bg-white print:min-h-0 print:p-0 print:overflow-visible">
         
         <Navbar />
-
         <Routes>
           <Route path="/" element={<Home />} />
 
