@@ -11,7 +11,7 @@ interface ResumePreviewProps {
 }
 
 export default function ResumePreview({ data }: ResumePreviewProps) {
-  const { personal, projects, account } = data;
+  const { personal, projects, account} = data;
 
   return (
     <div className="p-10 text-black bg-white min-h-[297mm] w-[210mm] mx-auto font-serif">
