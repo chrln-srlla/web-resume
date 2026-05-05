@@ -1,3 +1,4 @@
+import React from "react";
 import type { UserData } from "./Personal Information";
 import type { ProjectData } from "./Projects";
 import type { AccountData } from "./Account";
@@ -11,7 +12,17 @@ interface ResumePreviewProps {
 }
 
 export default function ResumePreview({ data }: ResumePreviewProps) {
-  const { personal, projects, account} = data;
+  const { personal, projects, account } = data;
+
+  const imageUrl = React.useMemo(() => {
+    return personal.image ? URL.createObjectURL(personal.image) : null;
+  }, [personal.image]);
+
+  React.useEffect(() => {
+    return () => {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+    };
+  }, [imageUrl]);
 
   return (
     <div className="p-10 text-black bg-white min-h-[297mm] w-[210mm] mx-auto font-serif">
@@ -21,13 +32,14 @@ export default function ResumePreview({ data }: ResumePreviewProps) {
           <div className="mt-2 text-sm text-gray-700">
             <p>{account.email} | {account.number}</p>
             <p>{account.github}</p>
+            <p>{account.linkedin}</p>
             <p>{personal.age} | {personal.sex}</p>
             <p className="italic">{personal.birthplace} — {personal.birthdate}</p>
           </div>
         </div>
-        {personal.image && (
+        {imageUrl && (
           <img 
-            src={URL.createObjectURL(personal.image)} 
+            src={imageUrl} 
             alt="Profile" 
             className="w-32 h-40 object-cover border-2 border-gray-200"
           />

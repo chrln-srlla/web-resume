@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FormEvent } from "react";
+import React, { type ChangeEvent, type FormEvent } from "react";
 
 export interface UserData { 
   image: File | null;
@@ -40,124 +40,135 @@ export default function PersonalInformation({ data, setData, setActive }: Person
     setActive("Projects");  
   }
 
-  return (
-     <section className="flex flex-col md:flex-row items-center justify-between min-h-[70vh] px-10 md:px-20">
-      <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col items-center justify-center">
-        <div className="space-y-4 flex flex-col items-center mb-10">
+  const imageUrl = React.useMemo(() => {
+    return data.image ? URL.createObjectURL(data.image) : null;
+  }, [data.image]);
 
-          <div className="flex justify-center mt-10 mb-6">
-            {data.image ? (
+  React.useEffect(() => {
+    return () => {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+    };
+  }, [imageUrl]);
+
+  return (
+    <section className="page-section grid gap-10 md:grid-cols-2 md:items-start">
+      <div className="md:pt-10">
+        <p className="section-kicker">Step 1</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+          Personal Information.
+        </h1>
+        <p className="mt-4 max-w-prose text-white/70">
+          Add basic details to generate your resume.
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="card">
+        <div className="flex items-center justify-between gap-6">
+          <label className="label m-0" htmlFor="image">
+            Profile picture
+          </label>
+          <div className="shrink-0">
+            {imageUrl ? (
               <img
-                src={URL.createObjectURL(data.image)}
-                alt="Profile Preview"
-                className="w-36 h-36 object-cover border border-white/20"
+                src={imageUrl}
+                alt="Profile preview"
+                className="h-20 w-20 rounded-2xl object-cover border border-white/10"
               />
             ) : (
-              <div className="w-36 h-36 bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-400 text-sm">
-                No Image
+              <div className="h-20 w-20 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-xs text-white/60">
+                No photo
               </div>
             )}
           </div>
+        </div>
 
+        <div className="mt-4 grid gap-5">
           <div>
-            <h1 className="text-white pb-2 font-bold uppercase tracking-wide items-center justify-self-center">Profile Picture</h1>
             <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white w-full md:w-96"
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="input file:mr-4 file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-semibold file:text-black hover:file:bg-zinc-200"
             />
           </div>
 
-          {/** Name */}
-          <div>
-            <h1 className="text-white pb-2 font-bold uppercase tracking-wide justify-self-center">Name</h1>
-            <input
-              type="text"
-              name="name"
-              value={data.name}
-              onChange={handleChange}
-              placeholder="input your name"
-              className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white w-full md:w-96"
-              required
-            />
-          </div>
+            <div>
+              <label className="label" htmlFor="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                className="input"
+                required
+              />
+            </div>
 
-          {/** Age */}
-          <div>
-            <h1 className="text-white pb-2 font-bold uppercase tracking-wide justify-self-center">Age</h1>
-            <input
-              type="number"
-              name="age"
-              value={data.age}
-              onChange={handleChange}
-              placeholder="input your age"
-              className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white w-full md:w-96"
-              required
-            />
-          </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label className="label" htmlFor="age">Age</label>
+                <input
+                  id="age"
+                  type="number"
+                  name="age"
+                  value={data.age}
+                  onChange={handleChange}
+                  placeholder="e.g. 22"
+                  className="input"
+                  required
+                />
+              </div>
+              <div>
+                <label className="label" htmlFor="sex">Sex</label>
+                <input
+                  id="sex"
+                  type="text"
+                  name="sex"
+                  value={data.sex}
+                  onChange={handleChange}
+                  placeholder="e.g. Female"
+                  className="input"
+                  required
+                />
+              </div>
+            </div>
 
-          {/** Sex */}
-          <div>
-            <h1 className="text-white pb-2 font-bold uppercase tracking-wide justify-self-center">Sex</h1>
-            <input
-              type="text"
-              name="sex"
-              value={data.sex}
-              onChange={handleChange}
-              placeholder="input your sex"
-              className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white w-full md:w-96"
-              required
-            />
-          </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label className="label" htmlFor="birthdate">Birthdate</label>
+                <input
+                  id="birthdate"
+                  type="date"
+                  name="birthdate"
+                  value={data.birthdate}
+                  onChange={handleChange}
+                  className="input"
+                  required
+                />
+              </div>
+              <div>
+                <label className="label" htmlFor="birthplace">Birthplace</label>
+                <input
+                  id="birthplace"
+                  type="text"
+                  name="birthplace"
+                  value={data.birthplace}
+                  onChange={handleChange}
+                  placeholder="City, Country"
+                  className="input"
+                  required
+                />
+              </div>
+            </div>
 
-          {/** Birthdate */}
-          <div>
-            <h1 className="text-white pb-2 font-bold uppercase tracking-wide justify-self-center">Birthdate</h1>
-            <input
-              type="date"
-              name="birthdate"
-              value={data.birthdate}
-              onChange={handleChange}
-              className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white w-full md:w-96"
-              required
-            />
-          </div>
-
-          {/** Birthplace */}
-          <div>
-            <h1 className="text-white pb-2 font-bold uppercase tracking-wide justify-self-center">Birthplace</h1>
-            <input
-              type="text"
-              name="birthplace"
-              value={data.birthplace}
-              onChange={handleChange}
-              placeholder="input your birthplace"
-              className="bg-[#2a2a2a] mb-5 border border-white/5 rounded-lg p-3 text-white w-full md:w-96"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="mt-1 w-full md:w-80 bg-white text-black py-3 rounded-lg font-bold hover:bg-gray-200 transition"
-          >
-            Next, Project
-          </button>
+            <button type="submit" className="btn-primary">
+              Next: Projects
+            </button>
         </div>
       </form>
-
-      <div className="mt-10 md:mt-0 flex flex-col items-end w-full px-5">
-        <div className="flex flex-col items-end">
-          <h2 className="font-poppins text-4xl text-white text-right uppercase tracking-wider">Personal</h2>
-          <h1 className="font-poppins italic text-7xl text-white mt-1 text-right mr-[-4px]">
-            Information
-          </h1>
-          <p className="font-poppins text-xl text-white mt-5 text-right opacity-80">
-            fill your <span className="font-bold text-gray-400">Personal Information</span>.
-          </p>
-        </div>
-      </div>
     </section>
   );
 }

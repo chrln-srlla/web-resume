@@ -1,15 +1,25 @@
 import { type ChangeEvent, type FormEvent } from "react";
+import ResumePreview from "./ResumePreview";
+import type { UserData } from "./Personal Information";
+import type { ProjectData } from "./Projects";
 
 export interface AccountData {
   number: number;
   email: string;
   github: string;
+  linkedin: string;
 }
+
+type ResumeData = {
+  personal: UserData;
+  projects: ProjectData;
+  account: AccountData;
+};
 
 interface AccountDataProps {
   data: AccountData;
   setData: (data: AccountData) => void;
-  resumeData: any; 
+  resumeData: ResumeData;
   setActive: (step: string) => void;
 }
 
@@ -35,69 +45,84 @@ export default function Account({ data, setData, resumeData, setActive }: Accoun
   };
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between min-h-[70vh] px-10 md:px-20">
-      <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col items-center mt-10">
-        <h1 className="text-white pb-2 font-bold uppercase tracking-wide">Contact Number</h1>
-        <input
-          type="number"
-          name="number"
-          value={data.number}
-          onChange={handleChange}
-          placeholder="input your contact number"
-          className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white focus:outline-none focus:border-white/20 transition w-full md:w-96 mb-5"
-          required
-        />
+    <section className="page-section grid gap-10 md:grid-cols-2 md:items-start">
+      <div className="md:pt-10 print:hidden">
+        <p className="section-kicker">Step 3</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Account.</h1>
+        <p className="mt-4 max-w-prose text-white/70">
+          When you’re ready, print your resume to PDF.
+        </p>
+      </div>
 
-        <h1 className="text-white pb-2 font-bold uppercase tracking-wide">Email Address</h1>
-        <input
-          type="email"
-          name="email"
-          value={data.email}
-          onChange={handleChange}
-          placeholder="input your email address"
-          className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white focus:outline-none focus:border-white/20 transition w-full md:w-96 mb-5"
-          required
-        />
+      <form onSubmit={handleSubmit} className="card space-y-5 print:hidden">
+        <div>
+          <label className="label" htmlFor="number">Contact number</label>
+          <input
+            id="number"
+            type="number"
+            name="number"
+            value={data.number}
+            onChange={handleChange}
+            placeholder="e.g. 09123456789"
+            className="input"
+            required
+          />
+        </div>
 
-        <h1 className="text-white pb-2 font-bold uppercase tracking-wide">Github</h1>
-        <input
-          type="text"
-          name="github"
-          value={data.github}
-          onChange={handleChange}
-          placeholder="input your github account"
-          className="bg-[#2a2a2a] border border-white/5 rounded-lg p-3 text-white focus:outline-none focus:border-white/20 transition w-full md:w-96 mb-5"
-          required
-        />
+        <div>
+          <label className="label" htmlFor="email">Email address</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={data.email}
+            onChange={handleChange}
+            placeholder="you@email.com"
+            className="input"
+            required
+          />
+        </div>
 
-        <div className="flex flex-col gap-4 mt-5 print:hidden">
-          <button
-            type="button"
-            onClick={handlePrint}
-            className="uppercase tracking-wide mt-2 w-full md:w-80 bg-[#111111] py-3 rounded-lg text-white font-bold hover:bg-[#1c1c1c] transition-colors items-center justify-self-center"
-          >
+        <div>
+          <label className="label" htmlFor="github">GitHub</label>
+          <input
+            id="github"
+            type="text"
+            name="github"
+            value={data.github}
+            onChange={handleChange}
+            placeholder="github.com/username"
+            className="input"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="label" htmlFor="linkedin">LinkedIn</label>
+          <input
+            id="linkedin"
+            type="text"
+            name="linkedin"
+            value={data.linkedin}
+            onChange={handleChange}
+            placeholder="linkedin.com/in/username"
+            className="input"
+            required
+          />
+        </div>
+
+        <div className="grid gap-3 pt-2">
+          <button type="button" onClick={handlePrint} className="btn-secondary w-full">
             Print Resume (PDF)
           </button>
-          
-          <button
-            type="submit"
-            className="mt-1 w-full md:w-80 bg-white text-black py-3 rounded-lg font-bold hover:bg-gray-200 transition"
-          >
+          <button type="submit" className="btn-primary">
             Finish & Return Home
           </button>
         </div>
       </form>
 
-      <div className="mt-10 md:mt-0 flex flex-col items-end w-full px-5">
-        <div className="flex flex-col items-end">
-          <h2 className="font-poppins text-4xl text-white text-right">Your</h2>
-          <h1 className="font-poppins italic text-7xl text-white mt-1 text-right mr-[-4px]">
-            Account
-          </h1>
-          <p className="font-poppins text-xl text-white mt-5 text-right opacity-80">
-            fill your <span className="font-bold text-gray-400">Account</span> details.
-          </p>
-        </div>
+      <div className="hidden print:block">
+        <ResumePreview data={resumeData} />
       </div>
     </section>
   );

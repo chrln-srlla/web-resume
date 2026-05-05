@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import Navbar from "./Navbar";
 import Home from "./Home";
@@ -8,17 +8,47 @@ import Projects from "./Projects";
 import Account from "./Account";
 import AboutUs from "./About Us";
 
-export default function App() {
-  const [resumeData, setResumeData] = React.useState({
-    personal: { image: null as File | null, name: "", age: 0, sex: "", birthdate: "", birthplace: "" },
+import type { UserData } from "./Personal Information";
+import type { ProjectData } from "./Projects";
+import type { AccountData } from "./Account";
+
+type ResumeData = {
+  personal: UserData;
+  projects: ProjectData;
+  account: AccountData;
+};
+
+function AppShell() {
+  const navigate = useNavigate();
+
+  const [resumeData, setResumeData] = React.useState<ResumeData>({
+    personal: {
+      image: null,
+      name: "",
+      age: 0,
+      sex: "",
+      birthdate: "",
+      birthplace: "",
+    },
     projects: { skills: [""], experiences: [""], projects: [""] },
-    account: { number: 0, email: "", github: "" }
+    account: { number: 0, email: "", github: "", linkedin: "" },
   });
 
+  const setActive = (step: string) => {
+    const routeByStep: Record<string, string> = {
+      Home: "/",
+      "Personal Information": "/personal-information",
+      Projects: "/projects",
+      Account: "/account",
+      About: "/about",
+    };
+
+    navigate(routeByStep[step] ?? "/");
+  };
+
   return (
-    <BrowserRouter>
-      <main className="p-5 px-16 md:p-15 min-h-screen bg-[#0a0a0a] print:bg-white print:min-h-0 print:p-0 print:overflow-visible">
-        
+    <main className="min-h-screen print:min-h-0 print:overflow-visible">
+      <div className="container-page">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,9 +58,9 @@ export default function App() {
             element={
               <PersonalInformation
                 data={resumeData.personal}
-                setData={(d) => setResumeData({ ...resumeData, personal: d })} setActive={function (step: string): void {
-                  throw new Error("Function not implemented.");
-                } }              />
+                setData={(d) => setResumeData({ ...resumeData, personal: d })}
+                setActive={setActive}
+              />
             }
           />
 
@@ -39,9 +69,9 @@ export default function App() {
             element={
               <Projects
                 data={resumeData.projects}
-                setData={(d) => setResumeData({ ...resumeData, projects: d })} setActive={function (step: string): void {
-                  throw new Error("Function not implemented.");
-                } }              />
+                setData={(d) => setResumeData({ ...resumeData, projects: d })}
+                setActive={setActive}
+              />
             }
           />
 
@@ -51,16 +81,23 @@ export default function App() {
               <Account
                 data={resumeData.account}
                 setData={(d) => setResumeData({ ...resumeData, account: d })}
-                resumeData={resumeData} setActive={function (step: string): void {
-                  throw new Error("Function not implemented.");
-                } }              />
+                resumeData={resumeData}
+                setActive={setActive}
+              />
             }
           />
 
           <Route path="/about" element={<AboutUs />} />
-
         </Routes>
-      </main>
+      </div>
+    </main>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   );
 }
