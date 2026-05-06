@@ -1,22 +1,18 @@
 import React, { type ChangeEvent, type FormEvent } from "react";
 
-export interface UserData { 
-  image: File | null;
-  name: string;
-  age: number;
-  sex: string;
-  birthdate: string;
-  birthplace: string;
-}
+import type { UserData } from "../types/resume";
 
 interface PersonalInformationProps {
   data: UserData;
   setData: (data: UserData) => void;
-  setActive: (step: string) => void; 
+  setActive: (step: string) => void;
 }
 
-export default function PersonalInformation({ data, setData, setActive }: PersonalInformationProps) {
-    
+export default function PersonalInformation({
+  data,
+  setData,
+  setActive,
+}: PersonalInformationProps) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData({
@@ -34,10 +30,9 @@ export default function PersonalInformation({ data, setData, setActive }: Person
     }
   };
 
-
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    event.preventDefault(); 
-    setActive("Projects");  
+    event.preventDefault();
+    setActive("Projects");
   }
 
   const imageUrl = React.useMemo(() => {
@@ -93,80 +88,90 @@ export default function PersonalInformation({ data, setData, setActive }: Person
             />
           </div>
 
+          <div>
+            <label className="label" htmlFor="name">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+              placeholder="Enter your full name"
+              className="input"
+              required
+            />
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
             <div>
-              <label className="label" htmlFor="name">Name</label>
+              <label className="label" htmlFor="age">
+                Age
+              </label>
               <input
-                id="name"
-                type="text"
-                name="name"
-                value={data.name}
+                id="age"
+                type="number"
+                name="age"
+                value={data.age}
                 onChange={handleChange}
-                placeholder="Enter your full name"
+                placeholder="e.g. 22"
                 className="input"
                 required
               />
             </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label className="label" htmlFor="age">Age</label>
-                <input
-                  id="age"
-                  type="number"
-                  name="age"
-                  value={data.age}
-                  onChange={handleChange}
-                  placeholder="e.g. 22"
-                  className="input"
-                  required
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="sex">Sex</label>
-                <input
-                  id="sex"
-                  type="text"
-                  name="sex"
-                  value={data.sex}
-                  onChange={handleChange}
-                  placeholder="e.g. Female"
-                  className="input"
-                  required
-                />
-              </div>
+            <div>
+              <label className="label" htmlFor="sex">
+                Sex
+              </label>
+              <input
+                id="sex"
+                type="text"
+                name="sex"
+                value={data.sex}
+                onChange={handleChange}
+                placeholder="e.g. Female"
+                className="input"
+                required
+              />
             </div>
+          </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label className="label" htmlFor="birthdate">Birthdate</label>
-                <input
-                  id="birthdate"
-                  type="date"
-                  name="birthdate"
-                  value={data.birthdate}
-                  onChange={handleChange}
-                  className="input"
-                  required
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="birthplace">Birthplace</label>
-                <input
-                  id="birthplace"
-                  type="text"
-                  name="birthplace"
-                  value={data.birthplace}
-                  onChange={handleChange}
-                  placeholder="City, Country"
-                  className="input"
-                  required
-                />
-              </div>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label className="label" htmlFor="birthdate">
+                Birthdate
+              </label>
+              <input
+                id="birthdate"
+                type="date"
+                name="birthdate"
+                value={data.birthdate}
+                onChange={handleChange}
+                className="input"
+                required
+              />
             </div>
+            <div>
+              <label className="label" htmlFor="birthplace">
+                Birthplace
+              </label>
+              <input
+                id="birthplace"
+                type="text"
+                name="birthplace"
+                value={data.birthplace}
+                onChange={handleChange}
+                placeholder="City, Country"
+                className="input"
+                required
+              />
+            </div>
+          </div>
 
-            <button type="submit" className="btn-primary">
-              Next: Projects
-            </button>
+          <button type="submit" className="btn-primary">
+            Next: Projects
+          </button>
         </div>
       </form>
     </section>
