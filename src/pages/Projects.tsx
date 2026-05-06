@@ -1,10 +1,6 @@
 import type { FormEvent } from "react";
 
-export interface ProjectData {
-  skills: string[];
-  experiences: string[];
-  projects: string[];
-}
+import type { ProjectData } from "../types/resume";
 
 interface ProjectDataProps {
   data: ProjectData;
@@ -13,7 +9,6 @@ interface ProjectDataProps {
 }
 
 export default function Projects({ data, setData, setActive }: ProjectDataProps) {
-  
   const handleChange = (
     category: keyof ProjectData,
     index: number,
@@ -62,7 +57,11 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
         <div>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Skills</h2>
-            <button type="button" onClick={() => handleAdd("skills")} className="btn-secondary">
+            <button
+              type="button"
+              onClick={() => handleAdd("skills")}
+              className="btn-secondary"
+            >
               + Add
             </button>
           </div>
@@ -94,7 +93,11 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
         <div>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Experience</h2>
-            <button type="button" onClick={() => handleAdd("experiences")} className="btn-secondary">
+            <button
+              type="button"
+              onClick={() => handleAdd("experiences")}
+              className="btn-secondary"
+            >
               + Add
             </button>
           </div>
@@ -104,7 +107,9 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
                 <input
                   type="text"
                   value={exp}
-                  onChange={(e) => handleChange("experiences", index, e.target.value)}
+                  onChange={(e) =>
+                    handleChange("experiences", index, e.target.value)
+                  }
                   placeholder="e.g. Junior Developer — TechCorp"
                   className="input mt-0"
                   required
@@ -126,7 +131,11 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
         <div>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Projects</h2>
-            <button type="button" onClick={() => handleAdd("projects")} className="btn-secondary">
+            <button
+              type="button"
+              onClick={() => handleAdd("projects")}
+              className="btn-secondary"
+            >
               + Add
             </button>
           </div>
@@ -136,7 +145,9 @@ export default function Projects({ data, setData, setActive }: ProjectDataProps)
                 <input
                   type="text"
                   value={proj}
-                  onChange={(e) => handleChange("projects", index, e.target.value)}
+                  onChange={(e) =>
+                    handleChange("projects", index, e.target.value)
+                  }
                   placeholder="e.g. Portfolio Website (Vite + React)"
                   className="input mt-0"
                   required
