@@ -1,4 +1,4 @@
-# webResume
+# ResuForge
 
 An online resume builder built with React + TypeScript. Fill in your details in a few steps, preview the result, and print it to PDF.
 
@@ -72,12 +72,3 @@ npm run lint
 - `src/types/` — TypeScript types for resume data
 - `src/index.css` — Tailwind layers + shared component classes + print CSS
 
-## Deployment
-
-This is a static SPA. Build with:
-
-```bash
-npm run build
-```
-
-Deploy the generated `dist/` folder to any static host (Netlify, Vercel, GitHub Pages, etc.).
