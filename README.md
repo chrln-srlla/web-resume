@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# webResume
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An online resume builder built with React + TypeScript. Fill in your details in a few steps, preview the result, and print it to PDF.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Multi-step flow: Personal Information → Skills/Experience/Projects → Account
+- Live resume preview component used for printing
+- Print-friendly layout (uses `window.print()` and print CSS)
+- Responsive UI styled with Tailwind CSS
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- React + TypeScript
+- Vite (dev server + build)
+- Tailwind CSS (plus PostCSS + Autoprefixer)
+- React Router
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (LTS recommended)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Then open the URL shown in your terminal (typically `http://localhost:5173`).
+
+## Printing to PDF
+
+1. Click **Get started** and complete the steps.
+2. Go to **Account**.
+3. Click **Print Resume (PDF)**.
+4. In the print dialog, choose **Save as PDF**.
+
+Notes:
+
+- The resume content is rendered in a print-only view (the form UI is hidden when printing).
+- Your data currently lives in React state and resets on refresh.
+
+## Scripts
+
+```bash
+# Start dev server
+npm run dev
+
+# Production build (TypeScript build + Vite build)
+npm run build
+
+# Preview the production build locally
+npm run preview
+
+# Lint
+npm run lint
+```
+
+## Project Structure
+
+- `src/pages/` — Route pages (Home, Personal Information, Projects, Account, About)
+- `src/components/` — UI components (including `ResumePreview`)
+- `src/layouts/` — App layout + route wiring
+- `src/types/` — TypeScript types for resume data
+- `src/index.css` — Tailwind layers + shared component classes + print CSS
+
+## Deployment
+
+This is a static SPA. Build with:
+
+```bash
+npm run build
+```
+
+Deploy the generated `dist/` folder to any static host (Netlify, Vercel, GitHub Pages, etc.).
